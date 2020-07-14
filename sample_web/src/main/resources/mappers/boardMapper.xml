@@ -10,18 +10,31 @@
 		(#{title}, #{content}, #{writer})
 	</insert>
 	<!-- 게시글 목록 -->
-	<select id="list" resultType="boardVO">
-		SELECT BNO
-		, TITLE
-		, WRITER
-		, REGDATE
+	<select id="listPage" resultType="boardVO"
+		parameterType="criteria">
+		SELECT BNO,
+		TITLE,
+		CONTENT,
+		WRITER,
+		REGDATE
+		FROM (
+		SELECT BNO,
+		TITLE,
+		CONTENT,
+		WRITER,
+		REGDATE,
+		ROW_NUMBER() OVER(ORDER BY BNO DESC) AS
+		RNUM
 		FROM MP_BOARD
+		) MP
+		WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
 		ORDER BY BNO DESC
 	</select>
 	<!-- 게시글 조회 -->
 	<select id="read" parameterType="int" resultType="boardVO">
 		SELECT BNO
-		, TITLE
+		,
+		TITLE
 		, CONTENT
 		, WRITER
 		, REGDATE
@@ -31,7 +44,8 @@
 	<!-- 게시글 수정 -->
 	<update id="update" parameterType="boardVO">
 		UPDATE MP_BOARD
-		SET TITLE = #{title},
+		SET TITLE =
+		#{title},
 		CONTENT = #{content}
 		WHERE BNO = #{bno}
 	</update>
@@ -39,6 +53,15 @@
 	<delete id="delete" parameterType="int">
 		DELETE
 		FROM MP_BOARD
-		WHERE BNO = #{bno}
+		WHERE BNO =
+		#{bno}
 	</delete>
+	<!-- 게시글 총 갯수 -->
+	<select id="listCount" resultType="int">
+	<![CDATA[
+		SELECT COUNT(BNO)
+		  FROM MP_BOARD
+		 WHERE BNO > 0
+	]]>
+	</select>
 </mapper>

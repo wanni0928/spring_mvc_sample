@@ -1,6 +1,5 @@
 package com.sample.web.controller;
 
-import java.util.List;
 import java.util.Locale;
 
 import javax.inject.Inject;
@@ -12,8 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.sample.web.service.MemberService;
-import com.sample.web.vo.MemberVO;
+import com.sample.web.service.BoardService;
+import com.sample.web.vo.Criteria;
+import com.sample.web.vo.PageMaker;
 
 /**
  * Handles requests for the application home page.
@@ -24,18 +24,24 @@ public class HomeController {
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
 	@Inject
-	private MemberService service;
+	BoardService service;
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 * @throws Exception 
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String getHome(Locale locale, Model model) throws Exception {
+	public String getHome(Model model, Criteria cri) throws Exception {
 		logger.info("home");
-		List<MemberVO> memberList = service.selectMember();
-		model.addAttribute("memberList", memberList);
-		return "home";
+//		List<MemberVO> memberList = service.selectMember();
+		model.addAttribute("list", service.list(cri));
+
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(service.listCount());
+		
+		model.addAttribute("pageMaker", pageMaker);
+		return "board/list";
 	}
 	
 }
