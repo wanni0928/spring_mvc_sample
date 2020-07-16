@@ -11,7 +11,7 @@
 	</insert>
 	<!-- 게시글 목록 -->
 	<select id="listPage" resultType="boardVO"
-		parameterType="criteria">
+		parameterType="searchCriteria">
 		SELECT BNO,
 		TITLE,
 		CONTENT,
@@ -23,9 +23,10 @@
 		CONTENT,
 		WRITER,
 		REGDATE,
-		ROW_NUMBER() OVER(ORDER BY BNO DESC) AS
-		RNUM
+		ROW_NUMBER() OVER(ORDER BY BNO DESC) AS RNUM
 		FROM MP_BOARD
+		WHERE 1=1
+		<include refid="search"></include>
 		) MP
 		WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
 		ORDER BY BNO DESC
@@ -57,11 +58,22 @@
 		#{bno}
 	</delete>
 	<!-- 게시글 총 갯수 -->
-	<select id="listCount" resultType="int">
-	<![CDATA[
+	<select id="listCount" parameterType="searchCriteria"
+		resultType="int">
 		SELECT COUNT(BNO)
-		  FROM MP_BOARD
-		 WHERE BNO > 0
-	]]>
+		FROM MP_BOARD
+		WHERE 1=1
+		<include refid="search"></include>
+		AND BNO > 0
 	</select>
+	
+	<sql id="search">
+		<if test="searchType != null">
+			<if test="searchType == 't'.toString()">AND TITLE LIKE '%' #{keyword} '%'</if>
+			<if test="searchType == 'c'.toString()">AND CONTENT LIKE '%' #{keyword} '%'</if>
+			<if test="searchType == 'w'.toString()">AND WRITER LIKE '%' #{keyword} '%'</if>
+			<if test="searchType == 'tc'.toString()">AND (TITLE LIKE '%' #{keyword} '%') or (CONTENT
+				LIKE '%' #{keyword} '%')</if>
+		</if>
+	</sql>
 </mapper>

@@ -7,5 +7,7 @@
 		<typeAlias type="com.sample.web.vo.MemberVO" alias="memberVO" />
 		<typeAlias type="com.sample.web.vo.BoardVO" alias="boardVO" />
 		<typeAlias type="com.sample.web.vo.Criteria" alias="criteria" />
+		<typeAlias type="com.sample.web.vo.SearchCriteria" alias="searchCriteria" />
+		<typeAlias type="com.sample.web.vo.ReplyVO" alias="replyVO" />
 	</typeAliases>
 </configuration>

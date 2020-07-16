@@ -10,33 +10,46 @@
 </head>
 
 <script type="text/javascript">
-	$(document).ready(function() {
-		var formObj = $("form[name='readForm']");
+	$(document)
+			.ready(
+					function() {
+						var formObj = $("form[name='readForm']");
 
-		// 수정 
-		$(".update_btn").on("click", function() {
-			formObj.attr("action", "/board/updateView");
-			formObj.attr("method", "get");
-			formObj.submit();
-		})
+						// 수정 
+						$(".update_btn").on("click", function() {
+							formObj.attr("action", "/board/updateView");
+							formObj.attr("method", "get");
+							formObj.submit();
+						})
 
-		// 삭제
-		$(".delete_btn").on("click", function() {
+						// 삭제
+						$(".delete_btn").on("click", function() {
 
-			var deleteYN = confirm("삭제하시겠습니가?");
-			if (deleteYN == true) {
-				formObj.attr("action", "/board/delete");
-				formObj.attr("method", "post");
-				formObj.submit();
-			}
-		})
+							var deleteYN = confirm("삭제하시겠습니가?");
+							if (deleteYN == true) {
+								formObj.attr("action", "/board/delete");
+								formObj.attr("method", "post");
+								formObj.submit();
+							}
+						})
 
-		// 취소
-		$(".list_btn").on("click", function() {
+						// 취소
+						$(".list_btn").on("click", function() {
 
-			location.href = "/board/list";
-		})
-	})
+							location.href = "/board/list";
+						})
+
+						// 목록
+						$(".list_btn")
+								.on(
+										"click",
+										function() {
+
+											location.href = "/board/list?page=${scri.page}"
+													+ "&perPageNum=${scri.perPageNum}"
+													+ "&searchType=${scri.searchType}&keyword=${scri.keyword}";
+										})
+					})
 </script>
 
 <body>
@@ -54,7 +67,13 @@
 
 		<section id="container">
 			<form name="readForm" role="form" method="post">
-				<input type="hidden" id="bno" name="bno" value="${read.bno}" />
+				<input type="hidden" id="bno" name="bno" value="${read.bno}" /> <input
+					type="hidden" id="page" name="page" value="${scri.page}"> <input
+					type="hidden" id="perPageNum" name="perPageNum"
+					value="${scri.perPageNum}"> <input type="hidden"
+					id="searchType" name="searchType" value="${scri.searchType}">
+				<input type="hidden" id="keyword" name="keyword"
+					value="${scri.keyword}">
 			</form>
 			<table>
 				<tbody>
@@ -83,6 +102,23 @@
 				<button type="submit" class="update_btn">수정</button>
 				<button type="submit" class="delete_btn">삭제</button>
 				<button type="submit" class="list_btn">목록</button>
+			</div>
+
+			<!-- 댓글 -->
+			<div id="reply">
+				<ol class="replyList">
+					<c:forEach items="${replyList}" var="replyList">
+						<li>
+							<p>
+								작성자 : ${replyList.writer}<br /> 작성 날짜 :
+								<fmt:formatDate value="${replyList.regdate}"
+									pattern="yyyy-MM-dd" />
+							</p>
+
+							<p>${replyList.content}</p>
+						</li>
+					</c:forEach>
+				</ol>
 			</div>
 		</section>
 		<hr />
