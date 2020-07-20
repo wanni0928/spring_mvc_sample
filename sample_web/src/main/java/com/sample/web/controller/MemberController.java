@@ -36,7 +36,7 @@ public class MemberController {
 
 		service.register(vo);
 
-		return null;
+		return "redirect:/";
 	}
 
 	// 로그인
@@ -101,7 +101,7 @@ public class MemberController {
 		String sessionPass = member.getUserPass();
 		// vo로 들어오는 비밀번호
 		String voPass = vo.getUserPass();
-
+		System.out.println(member.toString());
 		if (!(sessionPass.equals(voPass))) {
 			rttr.addFlashAttribute("msg", false);
 			return "redirect:/member/memberDeleteView";

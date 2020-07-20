@@ -1,48 +1,48 @@
 package com.sample.web.vo;
 
+import java.util.Date;
+
 public class MemberVO {
-	private String id;
-	private String pw;
-	private String name;
-	
-	public MemberVO() {
+	private String userId;
+	private String userPass;
+	private String userName;
+	private Date regDate;
+
+	public String getUserId() {
+		return userId;
 	}
 
-	public MemberVO(String id, String pw, String name) {
-		super();
-		this.id = id;
-		this.pw = pw;
-		this.name = name;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
-	public String getId() {
-		return id;
+	public String getUserPass() {
+		return userPass;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setUserPass(String userPass) {
+		this.userPass = userPass;
 	}
 
-	public String getPw() {
-		return pw;
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setPw(String pw) {
-		this.pw = pw;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
-	public String getName() {
-		return name;
+	public Date getRegDate() {
+		return regDate;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setRegDate(Date regDate) {
+		this.regDate = regDate;
 	}
 
 	@Override
 	public String toString() {
-		return "MemberVO [id=" + id + ", pw=" + pw + ", name=" + name + "]";
+		return "MemberVO [userId=" + userId + ", userPass=" + userPass + ", userName=" + userName + ", regDate="
+				+ regDate + "]";
 	}
-	
-	
 }
