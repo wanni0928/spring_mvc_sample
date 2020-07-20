@@ -3,13 +3,49 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="replyMapper">
-
+	<!-- 댓글 작성 -->
+	<insert id="writeReply">
+		INSERT INTO MP_REPLY(
+		BNO
+		, CONTENT
+		, WRITER
+		)
+		VALUES(
+		#{bno}
+		, #{content}
+		, #{writer} )
+	</insert>
 	<!-- 댓글 조회 -->
 	<select id="readReply" resultType="replyVO">
 		SELECT
-		RNO, CONTENT, WRITER, REGDATE
+		RNO, CONTENT, WRITER,
+		REGDATE
 		FROM MP_REPLY
 		WHERE BNO = #{bno}
 	</select>
+	<!-- 댓글 수정 -->
+	<update id="updateReply" parameterType="replyVO">
+		UPDATE MP_REPLY SET
+		CONTENT = #{content}
+		WHERE RNO = #{rno}
+	</update>
 
+	<!-- 댓글 삭제 -->
+	<delete id="deleteReply" parameterType="replyVO">
+		DELETE FROM MP_REPLY
+		WHERE RNO = #{rno}
+	</delete>
+
+	<!-- 선택된 댓글 조회 -->
+	<select id="selectReply" resultType="replyVO">
+		SELECT
+		BNO
+		, RNO
+		, CONTENT
+		,
+		WRITER
+		, REGDATE
+		FROM MP_REPLY
+		WHERE RNO = #{rno}
+	</select>
 </mapper>

@@ -33,14 +33,14 @@ public class HomeController {
 	public String getHome(Model model,@ModelAttribute("scri") SearchCriteria scri) throws Exception {
 		logger.info("home");
 //		List<MemberVO> memberList = service.selectMember();
-		model.addAttribute("list", service.list(scri));
-
-		PageMaker pageMaker = new PageMaker();
-		pageMaker.setCri(scri);
-		pageMaker.setTotalCount(service.listCount(scri));
-		
-		model.addAttribute("pageMaker", pageMaker);
-		return "board/list";
+//		model.addAttribute("list", service.list(scri));
+//
+//		PageMaker pageMaker = new PageMaker();
+//		pageMaker.setCri(scri);
+//		pageMaker.setTotalCount(service.listCount(scri));
+//		
+//		model.addAttribute("pageMaker", pageMaker);
+		return "home";
 	}
 	
 }

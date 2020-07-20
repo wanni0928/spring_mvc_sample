@@ -5,5 +5,8 @@ import java.util.List;
 import com.sample.web.vo.MemberVO;
 
 public interface MemberService {
-	public List<MemberVO> selectMember() throws Exception;
+	public void register(MemberVO vo) throws Exception;
+	public MemberVO login(MemberVO vo) throws Exception;
+	public void memberUpdate(MemberVO vo) throws Exception;
+	public void memberDelete(MemberVO vo) throws Exception;
 }
