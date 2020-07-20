@@ -8,7 +8,7 @@
 	<!-- mybatis-config.xml의 typeAlias에 등록해두지 않았다면 <select id="selectMember" 
 		resultType="com.example.dto.MemberVO" > SELECT ID, PW ,NAME FROM TEST </select> 
 		이렇게 해야 한다. -->
-
+	<!-- 회원가입 -->
 	<insert id="register">
 		INSERT INTO MP_MEMBER( USERID
 		, USERPASS
@@ -20,23 +20,35 @@
 	<!-- 로그인 -->
 	<select id="login" resultType="memberVO">
 		SELECT USERID, USERPASS, USERNAME
-		FROM
-		MP_MEMBER
+		FROM MP_MEMBER
 		WHERE USERID = #{userId}
-		AND USERPASS = #{userPass}
+		<!-- AND USERPASS = #{userPass} -->
 	</select>
+
+
 	<!-- 회원정보 수정 -->
 	<update id="memberUpdate">
 		UPDATE MP_MEMBER SET
-		USERPASS = #{userPass},
-		USERNAME =
-		#{userName}
+		<!-- USERPASS = #{userPass}, -->
+		USERNAME = #{userName}
 		WHERE USERID = #{userId}
 	</update>
+
 	<!-- 회원탈퇴 -->
 	<delete id="memberDelete">
 		DELETE FROM MP_MEMBER
 		WHERE USERID = #{userId}
-		AND USERPASS = #{userPass}
+		<!-- AND USERPASS = #{userPass} -->
 	</delete>
+	<!-- 패스워드 체크 -->
+	<select id="passChk" resultType="int">
+		SELECT COUNT(*) FROM MP_MEMBER
+		WHERE USERID = #{userId}
+		AND USERPASS = #{userPass}
+	</select>
+	<!-- 아이디 중복 체크 -->
+	<select id="idChk" resultType="int">
+		SELECT COUNT(*) FROM MP_MEMBER
+		WHERE USERID = #{userId}
+	</select>
 </mapper>
