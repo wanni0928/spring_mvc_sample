@@ -2,12 +2,14 @@ package com.sample.web.service;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
 import com.sample.web.vo.BoardVO;
 import com.sample.web.vo.SearchCriteria;
 
 public interface BoardService {
 	// 게시글 작성
-	public void write(BoardVO board) throws Exception;
+	public void write(BoardVO boardVO, MultipartHttpServletRequest mpRequest) throws Exception;
 	// 게시글 목록
 	public List<BoardVO> list(SearchCriteria scri) throws Exception;
 	// 게시글 총 갯수
