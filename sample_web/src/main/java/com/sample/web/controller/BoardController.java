@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sample.web.service.BoardService;
@@ -39,12 +40,11 @@ public class BoardController {
 	}
 
 	// 게시판 글 작성
-	@RequestMapping(value = "/board/write", method = RequestMethod.POST)
-	public String write(BoardVO boardVO) throws Exception {
+	@RequestMapping(value = "/write", method = RequestMethod.POST)
+	public String write(BoardVO boardVO, MultipartHttpServletRequest mpRequest) throws Exception{
 		logger.info("write");
-
-		service.write(boardVO);
-
+		service.write(boardVO, mpRequest);
+		
 		return "redirect:/board/list";
 	}
 

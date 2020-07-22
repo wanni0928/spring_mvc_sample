@@ -1,6 +1,7 @@
 package com.sample.web.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -46,5 +47,11 @@ public class BoardDAOImpl implements BoardDAO {
 	public int listCount(SearchCriteria scri) throws Exception {
 		return sqlSession.selectOne("boardMapper.listCount", scri);
 	}
+	// 첨부파일 업로드
+	@Override
+	public void insertFile(Map<String, Object> map) throws Exception {
+		sqlSession.insert("boardMapper.insertFile", map);
+	}
+	
 
 }
