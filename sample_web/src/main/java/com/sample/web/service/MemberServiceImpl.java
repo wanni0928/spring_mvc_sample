@@ -1,6 +1,7 @@
 package com.sample.web.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -54,4 +55,5 @@ public class MemberServiceImpl implements MemberService {
 		int result = dao.idChk(vo);
 		return result;
 	}
+
 }
