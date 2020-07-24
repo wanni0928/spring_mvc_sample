@@ -8,6 +8,7 @@ public class BoardVO {
 	private String content;
 	private String writer;
 	private Date regdate;
+	private int hit;
 	
 	public BoardVO() {
 		// TODO Auto-generated constructor stub
@@ -28,6 +29,14 @@ public class BoardVO {
 
 	public void setBno(int bno) {
 		this.bno = bno;
+	}
+
+	public int getHit() {
+		return hit;
+	}
+
+	public void setHit(int hit) {
+		this.hit = hit;
 	}
 
 	public String getTitle() {
